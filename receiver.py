@@ -1,16 +1,14 @@
-# Receiver App
+import streamlit as st
 
-from flask import Flask, request
+# Define Streamlit app
+def app():
+    # Create a route to receive password data via POST request
+    if st.request.method == "POST":
+        password = st.request.form["password"]
+        username = st.request.form["username"]
+        st.write("Received Password:", password)
+        st.write("Received Password:", username)
 
-app = Flask(__name__)
-
-# Define an endpoint to receive data from the Sender App
-@app.route('/receive_data', methods=['POST'])
-def receive_data():
-    data = request.form['data']
-    # Process the received data as needed
-    print("Received data:", data)
-    return "Data received"
-
-if __name__ == '__main__':
-    app.run(port=5001)  # Run the app on a different port than the Sender App
+# Run Streamlit app
+if __name__ == "__main__":
+    app()
