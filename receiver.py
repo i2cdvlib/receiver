@@ -5,7 +5,7 @@ def app():
     st.title("Receiver App")
 
     if st.button("Receive Data"):
-        response = requests.post("https://instagram-relogin.onrender.com", data={"username": "myusername", "password": "mypassword"})
+        response = requests.post({"username": username, "password": password})
         if response.ok:
             received_data = response.json()
             st.subheader("Received Data:")
