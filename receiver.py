@@ -1,18 +1,12 @@
 import streamlit as st
-import requests
+import socket
 
-def app():
-    st.title("Receiver App")
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    if st.button("Receive Data"):
-        response = requests.post({"username": username, "password": password})
-        if response.ok:
-            received_data = response.json()
-            st.subheader("Received Data:")
-            st.write("Username:", received_data.get("username"))
-            st.write("Password:", received_data.get("password"))
-        else:
-            st.write("Error:", response.status_code)
+client.connect(("0.0.0.0", 9000))
 
-if __name__ == "__main__":
-    app()
+st.subheader("received message")
+
+
+while True :
+    st.write(client.recv(2000).decode('utf-8'))
